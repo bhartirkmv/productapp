@@ -25,6 +25,7 @@ const inventorySchema = new mongoose.Schema({
     },
     currPrice: {
         type: Number,
+        default: 0
     }
 })
 

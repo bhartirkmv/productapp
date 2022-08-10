@@ -41,13 +41,20 @@ exports.createInventory = catchAsync(async(req, res, next)=>{
     let {productId, availCnt, promotionDiscount} = {...req.body};
     let soldCnt = 0;
     let retailerId = req.user._id;
-    let currPrice = product.mrp - promotionDiscount;
+    let currPrice=0;
+    if(promotionDiscount== null){
+        currPrice = parseInt(product.mrp);
+    }
+    else{
+        currPrice = parseInt(product.mrp) - parseInt(promotionDiscount);
+    }
+    
     let productBody = {
         productId,
         retailerId,
         availCnt,
         soldCnt,
-        promotion,
+        promotionDiscount,
         currPrice
     } 
     const doc = await Inventory.create(productBody);
